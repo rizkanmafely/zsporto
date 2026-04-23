@@ -3,349 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muhammad Rizkan Anizar — Portfolio</title>
+<title>Rizkan — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   :root {
-    --bg: #0a0a0f;
-    --bg2: #12121a;
-    --card: #1a1a26;
-    --accent: #6c63ff;
-    --accent2: #ff6584;
-    --text: #e8e8f0;
-    --muted: #8888aa;
-    --border: rgba(108,99,255,0.25);
+    --bg: #0a0a0f; --bg2: #12121a; --card: #1a1a26;
+    --accent: #6c63ff; --accent2: #ff6584;
+    --text: #e8e8f0; --muted: #8888aa; --border: rgba(108,99,255,0.25);
   }
-
   html { scroll-behavior: smooth; }
+  body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-  body {
-    font-family: 'Space Grotesk', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ===== SPLASH ===== */
-  #splash {
-    position: fixed; inset: 0; background: var(--bg);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    z-index: 999; transition: opacity 0.8s ease, visibility 0.8s ease;
-  }
+  #splash { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999; transition: opacity 0.8s ease, visibility 0.8s ease; }
   #splash.hidden { opacity: 0; visibility: hidden; }
-  .splash-text {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 400;
-    letter-spacing: 0.02em; color: var(--text); text-align: center;
-    opacity: 0; transform: translateY(20px);
-    animation: fadeUp 0.8s ease 0.3s forwards;
-  }
+  .splash-text { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,5vw,3rem); font-weight: 400; letter-spacing: 0.02em; color: var(--text); text-align: center; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s ease 0.3s forwards; }
   .splash-text span { color: var(--accent); font-style: italic; }
-  .splash-sub {
-    font-size: 0.9rem; color: var(--muted); margin-top: 1rem;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
-  }
-  .splash-line {
-    width: 0; height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    margin-top: 2rem; animation: expandLine 1.2s ease 1s forwards; border-radius: 2px;
-  }
-  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-  @keyframes expandLine { to { width: 120px; } }
+  .splash-sub { font-size: 0.9rem; color: var(--muted); margin-top: 1rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards; }
+  .splash-line { width: 0; height: 2px; background: linear-gradient(90deg,var(--accent),var(--accent2)); margin-top: 2rem; animation: expandLine 1.2s ease 1s forwards; border-radius: 2px; }
+  @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+  @keyframes expandLine { to { width:120px; } }
 
-  /* ===== PAGE SYSTEM ===== */
   .page { display: none; }
   .page.active { display: block; }
   #main { opacity: 0; transition: opacity 0.8s ease 0.2s; }
   #main.visible { opacity: 1; }
 
-  /* ===== HERO ===== */
-  .hero {
-    min-height: 100vh; display: flex; align-items: center;
-    justify-content: center; padding: 2rem;
-    background: radial-gradient(ellipse at 20% 50%, rgba(108,99,255,0.12) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(255,101,132,0.08) 0%, transparent 50%);
-  }
+  .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; background: radial-gradient(ellipse at 20% 50%,rgba(108,99,255,0.12) 0%,transparent 60%), radial-gradient(ellipse at 80% 20%,rgba(255,101,132,0.08) 0%,transparent 50%); }
   .hero-inner { width: 100%; max-width: 780px; }
-  .profile-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 24px; padding: 2.5rem; width: 100%;
-    display: grid; grid-template-columns: 1fr auto; gap: 2rem;
-    align-items: start; position: relative; overflow: hidden;
-    box-shadow: 0 0 60px rgba(108,99,255,0.08);
-  }
-  .profile-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
-  }
-  .profile-greeting {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3rem); font-weight: 400;
-    line-height: 1.2; margin-bottom: 0.5rem;
-  }
-  .profile-greeting span { color: var(--accent); font-style: italic; }
-  .profile-tagline { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; letter-spacing: 0.05em; }
-  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-  .info-item {
-    background: rgba(255,255,255,0.04); border-radius: 12px;
-    padding: 0.9rem 1rem; border: 1px solid rgba(255,255,255,0.06);
-  }
-  .info-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3rem; }
-  .info-value { font-size: 0.95rem; font-weight: 500; color: var(--text); }
+  .profile-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem; width: 100%; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; position: relative; overflow: hidden; box-shadow: 0 0 60px rgba(108,99,255,0.08); }
+  .profile-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent)); }
+  .profile-greeting { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3rem); font-weight:400; line-height:1.2; margin-bottom:0.5rem; }
+  .profile-greeting span { color:var(--accent); font-style:italic; }
+  .profile-tagline { color:var(--muted); font-size:0.95rem; margin-bottom:2rem; letter-spacing:0.05em; }
+  .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem; }
+  .info-item { background:rgba(255,255,255,0.04); border-radius:12px; padding:0.9rem 1rem; border:1px solid rgba(255,255,255,0.06); }
+  .info-label { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.3rem; }
+  .info-value { font-size:0.95rem; font-weight:500; color:var(--text); }
 
-  /* ===== PHOTO ===== */
-  .photo-area { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
-  .photo-frame {
-    width: 130px; height: 130px; border-radius: 20px;
-    background: var(--bg2); border: 2px solid var(--border);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    position: relative; overflow: hidden; cursor: pointer; transition: border-color 0.3s;
-  }
-  .photo-frame:hover { border-color: var(--accent); }
-  .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: none; }
-  .photo-placeholder { text-align: center; color: var(--muted); }
-  .photo-placeholder svg { width: 40px; height: 40px; margin: 0 auto 0.4rem; opacity: 0.5; display: block; }
-  .photo-placeholder p { font-size: 0.65rem; letter-spacing: 0.05em; opacity: 0.7; }
-  .upload-btn {
-    font-size: 0.7rem; color: var(--accent);
-    background: rgba(108,99,255,0.1); border: 1px solid rgba(108,99,255,0.3);
-    padding: 0.3rem 0.8rem; border-radius: 20px; cursor: pointer;
-    letter-spacing: 0.08em; transition: all 0.2s; white-space: nowrap; display: inline-block;
-  }
-  .upload-btn:hover { background: rgba(108,99,255,0.2); }
-  #photoInput { display: none; }
+  .photo-area { display:flex; flex-direction:column; align-items:center; gap:0.8rem; }
+  .photo-frame { width:130px; height:130px; border-radius:20px; background:var(--bg2); border:2px solid var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; cursor:pointer; transition:border-color 0.3s; }
+  .photo-frame:hover { border-color:var(--accent); }
+  .photo-frame img { width:100%; height:100%; object-fit:cover; display:none; }
+  .photo-placeholder { text-align:center; color:var(--muted); }
+  .photo-placeholder svg { width:40px; height:40px; margin:0 auto 0.4rem; opacity:0.5; display:block; }
+  .photo-placeholder p { font-size:0.65rem; letter-spacing:0.05em; opacity:0.7; }
+  .upload-btn { font-size:0.7rem; color:var(--accent); background:rgba(108,99,255,0.1); border:1px solid rgba(108,99,255,0.3); padding:0.3rem 0.8rem; border-radius:20px; cursor:pointer; letter-spacing:0.08em; transition:all 0.2s; white-space:nowrap; display:inline-block; }
+  .upload-btn:hover { background:rgba(108,99,255,0.2); }
+  #photoInput { display:none; }
 
-  /* ===== SOCIAL ===== */
-  .social-section { padding: 4rem 2rem; display: flex; flex-direction: column; align-items: center; }
-  .section-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 2rem; }
-  .social-grid { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; max-width: 600px; }
-  .social-card {
-    display: flex; align-items: center; gap: 0.75rem;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 0.9rem 1.4rem;
-    cursor: pointer; transition: all 0.25s ease;
-    text-decoration: none; color: var(--text); min-width: 150px;
-  }
-  .social-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 8px 30px rgba(108,99,255,0.15); }
-  .social-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .social-name { font-size: 0.9rem; font-weight: 500; }
-  .social-handle { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+  .social-section { padding:4rem 2rem; display:flex; flex-direction:column; align-items:center; }
+  .section-title { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.2em; color:var(--muted); margin-bottom:2rem; }
+  .social-grid { display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; max-width:600px; }
+  .social-card { display:flex; align-items:center; gap:0.75rem; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:0.9rem 1.4rem; cursor:pointer; transition:all 0.25s ease; text-decoration:none; color:var(--text); min-width:150px; }
+  .social-card:hover { transform:translateY(-3px); border-color:var(--accent); box-shadow:0 8px 30px rgba(108,99,255,0.15); }
+  .social-icon { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .social-name { font-size:0.9rem; font-weight:500; }
+  .social-handle { font-size:0.72rem; color:var(--muted); margin-top:1px; }
 
-  /* ===== SCROLL HINT ===== */
-  .scroll-hint {
-    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-    margin-top: 2.5rem; color: var(--muted); font-size: 0.75rem;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    animation: bob 2s ease-in-out infinite;
-  }
-  .scroll-hint svg { width: 16px; height: 16px; opacity: 0.5; }
-  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+  .scroll-hint { display:flex; flex-direction:column; align-items:center; gap:0.5rem; margin-top:2.5rem; color:var(--muted); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; animation:bob 2s ease-in-out infinite; }
+  .scroll-hint svg { width:16px; height:16px; opacity:0.5; }
+  @keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(5px);} }
 
-  /* ===== PROJECTS NAV BUTTON ===== */
-  .projects-nav { padding: 2rem 2rem 4rem; display: flex; justify-content: center; position: relative; z-index: 1; }
-  .projects-nav-btn {
-    display: flex; align-items: center; gap: 0.75rem;
-    background: linear-gradient(135deg, rgba(108,99,255,0.15), rgba(255,101,132,0.1));
-    border: 1px solid var(--border); border-radius: 16px;
-    padding: 1.1rem 2rem; cursor: pointer; color: var(--text);
-    font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 500;
-    letter-spacing: 0.03em; transition: all 0.3s ease; text-decoration: none;
-  }
-  .projects-nav-btn:hover {
-    background: linear-gradient(135deg, rgba(108,99,255,0.28), rgba(255,101,132,0.18));
-    border-color: var(--accent); transform: translateY(-2px);
-    box-shadow: 0 10px 40px rgba(108,99,255,0.2);
-  }
-  .projects-nav-btn svg { width: 20px; height: 20px; color: var(--accent); }
-  .btn-badge {
-    font-size: 0.65rem; background: var(--accent); color: white;
-    padding: 0.2rem 0.5rem; border-radius: 20px; letter-spacing: 0.05em; margin-left: 0.25rem;
-  }
+  .projects-nav { padding:2rem 2rem 4rem; display:flex; justify-content:center; position:relative; z-index:1; }
+  .projects-nav-btn { display:flex; align-items:center; gap:0.75rem; background:linear-gradient(135deg,rgba(108,99,255,0.15),rgba(255,101,132,0.1)); border:1px solid var(--border); border-radius:16px; padding:1.1rem 2rem; cursor:pointer; color:var(--text); font-family:'Space Grotesk',sans-serif; font-size:1rem; font-weight:500; letter-spacing:0.03em; transition:all 0.3s ease; }
+  .projects-nav-btn:hover { background:linear-gradient(135deg,rgba(108,99,255,0.28),rgba(255,101,132,0.18)); border-color:var(--accent); transform:translateY(-2px); box-shadow:0 10px 40px rgba(108,99,255,0.2); }
+  .projects-nav-btn svg { width:20px; height:20px; color:var(--accent); }
+  .btn-badge { font-size:0.65rem; background:var(--accent); color:white; padding:0.2rem 0.5rem; border-radius:20px; letter-spacing:0.05em; margin-left:0.25rem; }
 
-  /* ===== PROJECTS PAGE ===== */
-  #page-projects { min-height: 100vh; padding: 3rem 2rem; position: relative; }
-  .projects-header { max-width: 780px; margin: 0 auto 3rem; display: flex; align-items: center; gap: 1rem; }
-  .back-btn {
-    display: flex; align-items: center; gap: 0.5rem;
-    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-    border-radius: 10px; padding: 0.5rem 1rem; cursor: pointer;
-    color: var(--muted); font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.85rem; transition: all 0.2s; flex-shrink: 0;
-  }
-  .back-btn:hover { color: var(--text); border-color: var(--accent); background: rgba(108,99,255,0.1); }
-  .back-btn svg { width: 14px; height: 14px; }
-  .projects-title { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 400; }
-  .projects-title span { color: var(--accent); font-style: italic; }
-  .projects-grid {
-    max-width: 780px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem;
-  }
-  .project-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 18px; padding: 1.5rem;
-    transition: all 0.25s ease; position: relative; overflow: hidden;
-  }
-  .project-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0;
-    height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2));
-    opacity: 0; transition: opacity 0.3s;
-  }
-  .project-card:hover { transform: translateY(-4px); border-color: rgba(108,99,255,0.4); box-shadow: 0 12px 40px rgba(108,99,255,0.1); }
-  .project-card:hover::before { opacity: 1; }
-  .project-icon {
-    width: 44px; height: 44px; border-radius: 12px;
-    background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(255,101,132,0.1));
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1rem; font-size: 1.2rem;
-  }
-  .project-name { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
-  .project-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.2rem; }
-  .project-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-  .project-link {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    font-size: 0.78rem; color: var(--accent); text-decoration: none;
-    border: 1px solid rgba(108,99,255,0.3); padding: 0.35rem 0.8rem;
-    border-radius: 20px; transition: all 0.2s; background: rgba(108,99,255,0.08);
-  }
-  .project-link:hover { background: rgba(108,99,255,0.2); }
-  .project-link svg { width: 12px; height: 12px; }
+  #page-projects { min-height:100vh; padding:3rem 2rem; position:relative; }
+  .projects-header { max-width:780px; margin:0 auto 2rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+  .projects-header-left { display:flex; align-items:center; gap:1rem; }
+  .back-btn { display:flex; align-items:center; gap:0.5rem; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:10px; padding:0.5rem 1rem; cursor:pointer; color:var(--muted); font-family:'Space Grotesk',sans-serif; font-size:0.85rem; transition:all 0.2s; flex-shrink:0; }
+  .back-btn:hover { color:var(--text); border-color:var(--accent); background:rgba(108,99,255,0.1); }
+  .back-btn svg { width:14px; height:14px; }
+  .projects-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,4vw,2.2rem); font-weight:400; }
+  .projects-title span { color:var(--accent); font-style:italic; }
 
-  /* Edit & Delete buttons */
-  .btn-edit, .btn-delete {
-    display: inline-flex; align-items: center; gap: 0.35rem;
-    font-size: 0.78rem; border-radius: 20px; padding: 0.35rem 0.8rem;
-    cursor: pointer; font-family: 'Space Grotesk', sans-serif;
-    font-weight: 500; transition: all 0.2s; border: 1px solid;
-  }
-  .btn-edit {
-    color: #a78bfa; background: rgba(167,139,250,0.08);
-    border-color: rgba(167,139,250,0.3);
-  }
-  .btn-edit:hover { background: rgba(167,139,250,0.2); border-color: #a78bfa; }
-  .btn-delete {
-    color: var(--accent2); background: rgba(255,101,132,0.08);
-    border-color: rgba(255,101,132,0.3);
-  }
-  .btn-delete:hover { background: rgba(255,101,132,0.2); border-color: var(--accent2); }
-  .btn-edit svg, .btn-delete svg { width: 11px; height: 11px; }
+  .btn-login { display:flex; align-items:center; gap:0.5rem; background:rgba(108,99,255,0.1); border:1px solid rgba(108,99,255,0.3); border-radius:10px; padding:0.5rem 1rem; cursor:pointer; color:var(--accent); font-family:'Space Grotesk',sans-serif; font-size:0.85rem; font-weight:500; transition:all 0.2s; }
+  .btn-login:hover { background:rgba(108,99,255,0.2); }
+  .btn-logout { display:flex; align-items:center; gap:0.5rem; background:rgba(255,101,132,0.08); border:1px solid rgba(255,101,132,0.3); border-radius:10px; padding:0.5rem 1rem; cursor:pointer; color:var(--accent2); font-family:'Space Grotesk',sans-serif; font-size:0.85rem; font-weight:500; transition:all 0.2s; }
+  .btn-logout:hover { background:rgba(255,101,132,0.18); }
+  .admin-badge { font-size:0.7rem; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; padding:0.2rem 0.6rem; border-radius:20px; letter-spacing:0.05em; }
 
-  .add-project-card {
-    background: rgba(255,255,255,0.02); border: 1.5px dashed rgba(108,99,255,0.3);
-    border-radius: 18px; padding: 1.5rem;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 0.75rem; cursor: pointer; min-height: 180px;
-    transition: all 0.25s ease; color: var(--muted);
-  }
-  .add-project-card:hover { border-color: var(--accent); background: rgba(108,99,255,0.05); color: var(--text); }
-  .add-project-card svg { width: 28px; height: 28px; opacity: 0.5; }
-  .add-project-card span { font-size: 0.85rem; letter-spacing: 0.05em; }
+  .projects-grid { max-width:780px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.25rem; }
+  .project-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:1.5rem; transition:all 0.25s ease; position:relative; overflow:hidden; }
+  .project-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),var(--accent2)); opacity:0; transition:opacity 0.3s; }
+  .project-card:hover { transform:translateY(-4px); border-color:rgba(108,99,255,0.4); box-shadow:0 12px 40px rgba(108,99,255,0.1); }
+  .project-card:hover::before { opacity:1; }
+  .project-icon { width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,rgba(108,99,255,0.2),rgba(255,101,132,0.1)); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; margin-bottom:1rem; font-size:1.2rem; }
+  .project-name { font-size:1rem; font-weight:600; margin-bottom:0.4rem; }
+  .project-desc { font-size:0.82rem; color:var(--muted); line-height:1.6; margin-bottom:1.2rem; }
+  .project-actions { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
+  .project-link { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.78rem; color:var(--accent); text-decoration:none; border:1px solid rgba(108,99,255,0.3); padding:0.35rem 0.8rem; border-radius:20px; transition:all 0.2s; background:rgba(108,99,255,0.08); }
+  .project-link:hover { background:rgba(108,99,255,0.2); }
+  .project-link svg { width:12px; height:12px; }
+  .btn-edit { display:inline-flex; align-items:center; gap:0.35rem; font-size:0.78rem; color:#a78bfa; background:rgba(167,139,250,0.08); border:1px solid rgba(167,139,250,0.3); border-radius:20px; padding:0.35rem 0.8rem; cursor:pointer; font-family:'Space Grotesk',sans-serif; font-weight:500; transition:all 0.2s; }
+  .btn-edit:hover { background:rgba(167,139,250,0.2); border-color:#a78bfa; }
+  .btn-delete { display:inline-flex; align-items:center; gap:0.35rem; font-size:0.78rem; color:var(--accent2); background:rgba(255,101,132,0.08); border:1px solid rgba(255,101,132,0.3); border-radius:20px; padding:0.35rem 0.8rem; cursor:pointer; font-family:'Space Grotesk',sans-serif; font-weight:500; transition:all 0.2s; }
+  .btn-delete:hover { background:rgba(255,101,132,0.2); border-color:var(--accent2); }
+  .btn-edit svg, .btn-delete svg { width:11px; height:11px; }
+  .add-project-card { background:rgba(255,255,255,0.02); border:1.5px dashed rgba(108,99,255,0.3); border-radius:18px; padding:1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; cursor:pointer; min-height:180px; transition:all 0.25s ease; color:var(--muted); }
+  .add-project-card:hover { border-color:var(--accent); background:rgba(108,99,255,0.05); color:var(--text); }
+  .add-project-card svg { width:28px; height:28px; opacity:0.5; }
+  .add-project-card span { font-size:0.85rem; letter-spacing:0.05em; }
 
-  /* ===== MODAL ===== */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.7); z-index: 500;
-    align-items: center; justify-content: center; padding: 1rem;
-    backdrop-filter: blur(4px);
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 20px; padding: 2rem; width: 100%; max-width: 440px;
-    position: relative; overflow: hidden;
-  }
-  .modal::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-  }
-  .modal h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
-  .modal h3 span { font-size: 1.2rem; }
-  .modal-field { margin-bottom: 1rem; }
-  .modal-field label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.4rem; }
-  .modal-field input, .modal-field textarea {
-    width: 100%; background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-    padding: 0.7rem 1rem; color: var(--text);
-    font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s;
-  }
-  .modal-field input:focus, .modal-field textarea:focus { border-color: var(--accent); }
-  .modal-field textarea { resize: vertical; min-height: 80px; }
-  .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
-  .btn-cancel {
-    padding: 0.6rem 1.2rem; background: transparent;
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-    color: var(--muted); cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; transition: all 0.2s;
-  }
-  .btn-cancel:hover { border-color: var(--muted); color: var(--text); }
-  .btn-save {
-    padding: 0.6rem 1.4rem; background: var(--accent); border: none;
-    border-radius: 10px; color: white; cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 500; transition: all 0.2s;
-  }
-  .btn-save:hover { background: #5a52e0; }
+  .skeleton { background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.04) 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:8px; }
+  @keyframes shimmer { 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
 
-  /* ===== CONFIRM DIALOG ===== */
-  .confirm-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.75); z-index: 600;
-    align-items: center; justify-content: center; padding: 1rem;
-    backdrop-filter: blur(4px);
-  }
-  .confirm-overlay.open { display: flex; }
-  .confirm-box {
-    background: var(--card); border: 1px solid rgba(255,101,132,0.3);
-    border-radius: 16px; padding: 1.75rem; width: 100%; max-width: 360px; text-align: center;
-  }
-  .confirm-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-  .confirm-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
-  .confirm-msg { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.5; }
-  .confirm-actions { display: flex; gap: 0.75rem; justify-content: center; }
-  .btn-confirm-cancel {
-    padding: 0.6rem 1.4rem; background: transparent;
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-    color: var(--muted); cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; transition: all 0.2s;
-  }
-  .btn-confirm-cancel:hover { border-color: var(--muted); color: var(--text); }
-  .btn-confirm-delete {
-    padding: 0.6rem 1.4rem; background: var(--accent2); border: none;
-    border-radius: 10px; color: white; cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 500; transition: all 0.2s;
-  }
-  .btn-confirm-delete:hover { background: #e0436a; }
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:500; align-items:center; justify-content:center; padding:1rem; backdrop-filter:blur(4px); }
+  .modal-overlay.open { display:flex; }
+  .modal { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:2rem; width:100%; max-width:440px; position:relative; overflow:hidden; }
+  .modal::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); }
+  .modal h3 { font-size:1.1rem; font-weight:600; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem; }
+  .modal-field { margin-bottom:1rem; }
+  .modal-field label { font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:0.4rem; }
+  .modal-field input, .modal-field textarea { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:0.7rem 1rem; color:var(--text); font-family:'Space Grotesk',sans-serif; font-size:0.9rem; outline:none; transition:border-color 0.2s; }
+  .modal-field input:focus, .modal-field textarea:focus { border-color:var(--accent); }
+  .modal-field textarea { resize:vertical; min-height:80px; }
+  .modal-actions { display:flex; gap:0.75rem; justify-content:flex-end; margin-top:1.5rem; }
+  .btn-cancel { padding:0.6rem 1.2rem; background:transparent; border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:var(--muted); cursor:pointer; font-family:'Space Grotesk',sans-serif; font-size:0.85rem; transition:all 0.2s; }
+  .btn-cancel:hover { border-color:var(--muted); color:var(--text); }
+  .btn-save { padding:0.6rem 1.4rem; background:var(--accent); border:none; border-radius:10px; color:white; cursor:pointer; font-family:'Space Grotesk',sans-serif; font-size:0.85rem; font-weight:500; transition:all 0.2s; }
+  .btn-save:hover { background:#5a52e0; }
+  .btn-save:disabled { opacity:0.5; cursor:not-allowed; }
+  .login-desc { font-size:0.85rem; color:var(--muted); margin-bottom:1.5rem; line-height:1.6; }
 
-  /* ===== TOAST ===== */
-  .toast {
-    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px);
-    background: var(--card); border: 1px solid var(--border);
-    padding: 0.75rem 1.25rem; border-radius: 12px;
-    font-size: 0.85rem; color: var(--text);
-    display: flex; align-items: center; gap: 0.5rem;
-    opacity: 0; transition: all 0.3s ease; z-index: 700;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3); white-space: nowrap;
-  }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-  .toast.success { border-color: rgba(52,211,153,0.4); }
-  .toast.error { border-color: rgba(255,101,132,0.4); }
+  .confirm-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:600; align-items:center; justify-content:center; padding:1rem; backdrop-filter:blur(4px); }
+  .confirm-overlay.open { display:flex; }
+  .confirm-box { background:var(--card); border:1px solid rgba(255,101,132,0.3); border-radius:16px; padding:1.75rem; width:100%; max-width:360px; text-align:center; }
+  .confirm-icon { font-size:2.5rem; margin-bottom:0.75rem; }
+  .confirm-title { font-size:1rem; font-weight:600; margin-bottom:0.5rem; }
+  .confirm-msg { font-size:0.85rem; color:var(--muted); margin-bottom:1.5rem; line-height:1.5; }
+  .confirm-actions { display:flex; gap:0.75rem; justify-content:center; }
+  .btn-confirm-cancel { padding:0.6rem 1.4rem; background:transparent; border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:var(--muted); cursor:pointer; font-family:'Space Grotesk',sans-serif; font-size:0.85rem; transition:all 0.2s; }
+  .btn-confirm-cancel:hover { border-color:var(--muted); color:var(--text); }
+  .btn-confirm-delete { padding:0.6rem 1.4rem; background:var(--accent2); border:none; border-radius:10px; color:white; cursor:pointer; font-family:'Space Grotesk',sans-serif; font-size:0.85rem; font-weight:500; transition:all 0.2s; }
+  .btn-confirm-delete:hover { background:#e0436a; }
 
-  /* ===== STARS ===== */
-  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-  .star { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--d) ease-in-out infinite; opacity: 0; }
-  @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: var(--o); } }
-  .hero, .social-section, .projects-nav, #page-projects { position: relative; z-index: 1; }
+  .toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(20px); background:var(--card); border:1px solid var(--border); padding:0.75rem 1.25rem; border-radius:12px; font-size:0.85rem; color:var(--text); display:flex; align-items:center; gap:0.5rem; opacity:0; transition:all 0.3s ease; z-index:700; box-shadow:0 8px 30px rgba(0,0,0,0.3); white-space:nowrap; }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  .toast.success { border-color:rgba(52,211,153,0.4); }
+  .toast.error { border-color:rgba(255,101,132,0.4); }
+  .toast.info { border-color:rgba(108,99,255,0.4); }
 
-  /* ===== FOOTER ===== */
-  footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.08em; position: relative; z-index: 1; }
+  .stars { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .star { position:absolute; background:white; border-radius:50%; animation:twinkle var(--d) ease-in-out infinite; opacity:0; }
+  @keyframes twinkle { 0%,100%{opacity:0;} 50%{opacity:var(--o);} }
+  .hero, .social-section, .projects-nav, #page-projects { position:relative; z-index:1; }
+  footer { text-align:center; padding:2rem; color:var(--muted); font-size:0.75rem; letter-spacing:0.08em; position:relative; z-index:1; }
 
-  @media (max-width: 560px) {
-    .profile-card { grid-template-columns: 1fr; }
-    .photo-area { flex-direction: row; justify-content: flex-start; }
-    .info-grid { grid-template-columns: 1fr; }
-    .projects-grid { grid-template-columns: 1fr; }
+  @media (max-width:560px) {
+    .profile-card { grid-template-columns:1fr; }
+    .photo-area { flex-direction:row; justify-content:flex-start; }
+    .info-grid { grid-template-columns:1fr; }
+    .projects-grid { grid-template-columns:1fr; }
+    .projects-header { flex-direction:column; align-items:flex-start; }
   }
 </style>
 </head>
@@ -353,18 +166,16 @@
 
 <div class="stars" id="stars"></div>
 
-<!-- SPLASH -->
 <div id="splash">
   <div class="splash-text">Welcome to my <span>portfolio</span> website</div>
-  <div class="splash-sub">Muhammad Rizkan Anizar — Personal Portfolio</div>
+  <div class="splash-sub">Rizkan — Personal Portfolio</div>
   <div class="splash-line"></div>
 </div>
 
 <div id="main">
 
-  <!-- ==================== PAGE: HOME ==================== -->
+  <!-- HOME -->
   <div id="page-home" class="page active">
-
     <section class="hero">
       <div class="hero-inner">
         <div class="profile-card">
@@ -372,36 +183,19 @@
             <div class="profile-greeting">Hai, saya <span>Rizkan</span> 👋</div>
             <div class="profile-tagline">Selamat datang di portfolio pribadi saya</div>
             <div class="info-grid">
-              <div class="info-item">
-                <div class="info-label">Nama Lengkap</div>
-                <div class="info-value">Muhammad Rizkan Anizar</div>
-              </div>
-              <div class="info-item">
-                <div class="info-label">Usia</div>
-                <div class="info-value" id="age-display">— Tahun</div>
-              </div>
-              <div class="info-item">
-                <div class="info-label">Tanggal Lahir</div>
-                <div class="info-value">30 November 2005</div>
-              </div>
-              <div class="info-item">
-                <div class="info-label">Status</div>
-                <div class="info-value">Open to Connect</div>
-              </div>
+              <div class="info-item"><div class="info-label">Nama Lengkap</div><div class="info-value">Rizkan</div></div>
+              <div class="info-item"><div class="info-label">Usia</div><div class="info-value" id="age-display">—</div></div>
+              <div class="info-item"><div class="info-label">Tanggal Lahir</div><div class="info-value">30 November 2005</div></div>
+              <div class="info-item"><div class="info-label">Status</div><div class="info-value">Open to Connect</div></div>
             </div>
           </div>
-
-          <!-- Foto Profil -->
           <div class="photo-area">
-            <div class="photo-frame" onclick="document.getElementById('photoInput').click()" title="Klik untuk ganti foto">
-              <img id="photoPreview" src="foto.png" alt="Foto Muhammad Rizkan Anizar"
-                onerror="this.style.display='none'; document.getElementById('photoPlaceholder').style.display='block';"
-                onload="this.style.display='block'; document.getElementById('photoPlaceholder').style.display='none';">
+            <div class="photo-frame" onclick="document.getElementById('photoInput').click()">
+              <img id="photoPreview" src="foto.png" alt="Foto Rizkan"
+                onerror="this.style.display='none';document.getElementById('photoPlaceholder').style.display='block';"
+                onload="this.style.display='block';document.getElementById('photoPlaceholder').style.display='none';">
               <div class="photo-placeholder" id="photoPlaceholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <circle cx="12" cy="8" r="4"/>
-                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
                 <p>Klik untuk<br>upload foto</p>
               </div>
             </div>
@@ -409,144 +203,114 @@
             <input type="file" id="photoInput" accept="image/*">
           </div>
         </div>
-
         <div class="scroll-hint">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 5v14M5 12l7 7 7-7"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
           scroll ke bawah
         </div>
       </div>
     </section>
 
-    <!-- SOCIAL MEDIA -->
     <section class="social-section">
       <div class="section-title">Temukan saya di</div>
       <div class="social-grid">
-
         <a class="social-card" href="https://www.instagram.com/mrzkann?igsh=c2JkcnRwcDg4MWQz&utm_source=qr" target="_blank">
           <div class="social-icon" style="background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/>
-              <circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="2"/>
-              <circle cx="17.5" cy="6.5" r="1.5" fill="white"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
           </div>
           <div><div class="social-name">Instagram</div><div class="social-handle">@mrzkann</div></div>
         </a>
-
         <a class="social-card" href="https://www.tiktok.com/@rizkanzzzr?_r=1&_t=ZS-95khrCnrP85" target="_blank">
           <div class="social-icon" style="background:#010101;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34l-.01-8.83a8.18 8.18 0 0 0 4.78 1.52V4.55a4.85 4.85 0 0 1-1-.14z"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34l-.01-8.83a8.18 8.18 0 0 0 4.78 1.52V4.55a4.85 4.85 0 0 1-1-.14z"/></svg>
           </div>
           <div><div class="social-name">TikTok</div><div class="social-handle">@rizkanzzzr</div></div>
         </a>
-
         <a class="social-card" href="https://wa.me/6289529978160" target="_blank">
           <div class="social-icon" style="background:#25d366;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
           </div>
           <div><div class="social-name">WhatsApp</div><div class="social-handle">+62 895-2997-8160</div></div>
         </a>
-
         <a class="social-card" href="https://discord.com/users/rzkan" target="_blank">
           <div class="social-icon" style="background:#5865f2;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.082.12 18.105.14 18.12a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.082.12 18.105.14 18.12a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
           </div>
           <div><div class="social-name">Discord</div><div class="social-handle">rzkan</div></div>
         </a>
-
         <a class="social-card" href="#" style="opacity:0.45;pointer-events:none;cursor:default;">
           <div class="social-icon" style="background:#229ed9;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
           </div>
           <div><div class="social-name">Telegram</div><div class="social-handle">coming soon</div></div>
         </a>
-
       </div>
     </section>
 
-    <!-- TOMBOL KE HALAMAN PROJECTS -->
     <div class="projects-nav">
       <button class="projects-nav-btn" onclick="showPage('projects')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="3" width="7" height="7" rx="1"/>
-          <rect x="14" y="3" width="7" height="7" rx="1"/>
-          <rect x="3" y="14" width="7" height="7" rx="1"/>
-          <rect x="14" y="14" width="7" height="7" rx="1"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Lihat My Projects
         <span class="btn-badge">NEW</span>
       </button>
     </div>
-
     <footer>&copy; <span id="year"></span> Rizkan — All rights reserved</footer>
   </div>
 
-  <!-- ==================== PAGE: PROJECTS ==================== -->
+  <!-- PROJECTS PAGE -->
   <div id="page-projects" class="page">
-
     <div class="projects-header">
-      <button class="back-btn" onclick="showPage('home')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 5l-7 7 7-7"/>
-        </svg>
-        Kembali
-      </button>
-      <div class="projects-title">My <span>Projects</span></div>
+      <div class="projects-header-left">
+        <button class="back-btn" onclick="showPage('home')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7-7"/></svg>
+          Kembali
+        </button>
+        <div class="projects-title">My <span>Projects</span></div>
+      </div>
+      <div id="auth-area"></div>
     </div>
-
     <div class="projects-grid" id="projects-grid">
-      <div class="add-project-card" onclick="openModal()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="12" cy="12" r="9"/>
-          <path d="M12 8v8M8 12h8"/>
-        </svg>
-        <span>Tambah Project</span>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.5rem;">
+        <div class="skeleton" style="width:44px;height:44px;border-radius:12px;margin-bottom:1rem;"></div>
+        <div class="skeleton" style="width:60%;height:16px;border-radius:4px;margin-bottom:0.5rem;"></div>
+        <div class="skeleton" style="width:100%;height:12px;border-radius:4px;margin-bottom:0.3rem;"></div>
+        <div class="skeleton" style="width:80%;height:12px;border-radius:4px;"></div>
       </div>
     </div>
-
     <footer style="margin-top:3rem;">&copy; <span class="year-footer"></span> Rizkan — All rights reserved</footer>
   </div>
 
-</div><!-- end #main -->
+</div>
 
-<!-- ===== MODAL TAMBAH / EDIT ===== -->
-<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+<!-- MODAL PROJECT -->
+<div class="modal-overlay" id="project-modal" onclick="closeModalOutside(event)">
   <div class="modal">
     <h3><span id="modal-icon">✨</span> <span id="modal-title">Tambah Project Baru</span></h3>
-    <div class="modal-field">
-      <label>Nama Project</label>
-      <input type="text" id="input-name" placeholder="Contoh: Portfolio Website">
-    </div>
-    <div class="modal-field">
-      <label>Deskripsi</label>
-      <textarea id="input-desc" placeholder="Ceritakan sedikit tentang project ini..."></textarea>
-    </div>
-    <div class="modal-field">
-      <label>Link URL</label>
-      <input type="url" id="input-url" placeholder="https://...">
-    </div>
-    <div class="modal-field">
-      <label>Emoji Icon (opsional)</label>
-      <input type="text" id="input-emoji" placeholder="🌐" maxlength="4">
-    </div>
+    <div class="modal-field"><label>Nama Project</label><input type="text" id="input-name" placeholder="Contoh: Portfolio Website"></div>
+    <div class="modal-field"><label>Deskripsi</label><textarea id="input-desc" placeholder="Ceritakan sedikit tentang project ini..."></textarea></div>
+    <div class="modal-field"><label>Link URL</label><input type="url" id="input-url" placeholder="https://..."></div>
+    <div class="modal-field"><label>Emoji Icon (opsional)</label><input type="text" id="input-emoji" placeholder="🌐" maxlength="4"></div>
     <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal()">Batal</button>
+      <button class="btn-cancel" onclick="closeProjectModal()">Batal</button>
       <button class="btn-save" id="btn-save-modal" onclick="saveProject()">Simpan</button>
     </div>
   </div>
 </div>
 
-<!-- ===== CONFIRM DELETE ===== -->
+<!-- MODAL LOGIN -->
+<div class="modal-overlay" id="login-modal" onclick="closeLoginOutside(event)">
+  <div class="modal" style="max-width:380px;">
+    <h3>🔐 Admin Login</h3>
+    <p class="login-desc">Masuk sebagai admin untuk mengelola project.</p>
+    <div class="modal-field"><label>Email</label><input type="email" id="login-email" placeholder="email@kamu.com"></div>
+    <div class="modal-field"><label>Password</label><input type="password" id="login-password" placeholder="••••••••"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeLoginModal()">Batal</button>
+      <button class="btn-save" id="btn-login" onclick="doLogin()">Masuk</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE -->
 <div class="confirm-overlay" id="confirm-overlay">
   <div class="confirm-box">
     <div class="confirm-icon">🗑️</div>
@@ -559,11 +323,35 @@
   </div>
 </div>
 
-<!-- ===== TOAST ===== -->
 <div class="toast" id="toast"></div>
 
-<script>
-// ===== BINTANG =====
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, push, remove, onValue, update }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC12SW7W-nHfCzmJDXoMQBmQ9ONd00b-pg",
+  authDomain: "portofolio-dac45.firebaseapp.com",
+  databaseURL: "https://portofolio-dac45-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "portofolio-dac45",
+  storageBucket: "portofolio-dac45.firebasestorage.app",
+  messagingSenderId: "181155457505",
+  appId: "1:181155457505:web:9f087274216a539ca5caa0"
+};
+
+const app  = initializeApp(firebaseConfig);
+const db   = getDatabase(app);
+const auth = getAuth(app);
+
+let isAdmin   = false;
+let editKey   = null;
+let deleteKey = null;
+let deleteKeyName = '';
+
+// ===== STARS =====
 const starsEl = document.getElementById('stars');
 for (let i = 0; i < 60; i++) {
   const s = document.createElement('div');
@@ -579,189 +367,249 @@ setTimeout(() => {
   document.getElementById('main').classList.add('visible');
 }, 3000);
 
-// ===== UMUR OTOMATIS =====
+// ===== UMUR & TAHUN =====
 function calcAge() {
-  const birth = new Date(2005, 10, 30);
-  const today = new Date();
-  let age = today.getFullYear() - birth.getFullYear();
-  const m = today.getMonth() - birth.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < 30)) age--;
-  return age;
+  const b = new Date(2005,10,30), t = new Date();
+  let a = t.getFullYear() - b.getFullYear();
+  if (t.getMonth() < 10 || (t.getMonth()===10 && t.getDate()<30)) a--;
+  return a;
 }
 document.getElementById('age-display').textContent = calcAge() + ' Tahun';
-
-// ===== TAHUN FOOTER =====
 const yr = new Date().getFullYear();
 document.getElementById('year').textContent = yr;
 document.querySelectorAll('.year-footer').forEach(el => el.textContent = yr);
 
-// ===== UPLOAD FOTO =====
+// ===== FOTO =====
 document.getElementById('photoInput').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
+  const file = e.target.files[0]; if (!file) return;
   const reader = new FileReader();
-  reader.onload = function(ev) {
+  reader.onload = ev => {
     const img = document.getElementById('photoPreview');
-    img.src = ev.target.result;
-    img.style.display = 'block';
+    img.src = ev.target.result; img.style.display = 'block';
     document.getElementById('photoPlaceholder').style.display = 'none';
   };
   reader.readAsDataURL(file);
 });
 
 // ===== NAVIGASI =====
-function showPage(name) {
+window.showPage = n => {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+  document.getElementById('page-'+n).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+};
 
 // ===== TOAST =====
 let toastTimer;
-function showToast(msg, type = 'success') {
+window.showToast = (msg, type='success') => {
   const t = document.getElementById('toast');
-  const icons = { success: '✅', error: '❌', info: 'ℹ️' };
-  t.innerHTML = `${icons[type] || ''} ${msg}`;
+  const icons = {success:'✅',error:'❌',info:'ℹ️'};
+  t.innerHTML = `${icons[type]||''} ${msg}`;
   t.className = `toast ${type} show`;
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { t.classList.remove('show'); }, 2500);
-}
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2800);
+};
 
-// ===== PROJECTS DATA =====
-let projects = JSON.parse(localStorage.getItem('rzkan_projects') || '[]');
-let editIndex = -1; // -1 = mode tambah, >= 0 = mode edit
-let deleteIndex = -1;
-
-function escHtml(s) {
+function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function renderProjects() {
-  const grid = document.getElementById('projects-grid');
-  // hapus semua card kecuali tombol tambah
-  Array.from(grid.children).forEach(c => {
-    if (!c.classList.contains('add-project-card')) c.remove();
-  });
-  projects.forEach((p, i) => {
-    const card = document.createElement('div');
-    card.className = 'project-card';
-    card.innerHTML = `
-      <div class="project-icon">${p.emoji || '🌐'}</div>
-      <div class="project-name">${escHtml(p.name)}</div>
-      <div class="project-desc">${escHtml(p.desc)}</div>
-      <div class="project-actions">
-        <a class="project-link" href="${escHtml(p.url)}" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-          </svg>
-          Buka
-        </a>
-        <button class="btn-edit" onclick="openEditModal(${i})">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-          </svg>
-          Edit
-        </button>
-        <button class="btn-delete" onclick="openConfirm(${i})">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="3 6 5 6 21 6"/>
-            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
-            <path d="M10 11v6M14 11v6"/>
-            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
-          </svg>
-          Hapus
+// ===== AUTH STATE =====
+onAuthStateChanged(auth, user => {
+  isAdmin = !!user;
+  renderAuthArea();
+  loadProjects();
+});
+
+function renderAuthArea() {
+  const area = document.getElementById('auth-area');
+  if (isAdmin) {
+    area.innerHTML = `
+      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+        <span class="admin-badge">👑 Admin</span>
+        <button class="btn-logout" onclick="doLogout()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Logout
         </button>
       </div>`;
-    grid.insertBefore(card, grid.querySelector('.add-project-card'));
+  } else {
+    area.innerHTML = `
+      <button class="btn-login" onclick="openLoginModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Admin Login
+      </button>`;
+  }
+}
+
+// ===== LOAD PROJECTS =====
+function loadProjects() {
+  const grid = document.getElementById('projects-grid');
+  onValue(ref(db,'projects'), snapshot => {
+    grid.innerHTML = '';
+    const data = snapshot.val();
+
+    if (data) {
+      Object.entries(data).forEach(([key, p]) => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+          <div class="project-icon">${p.emoji||'🌐'}</div>
+          <div class="project-name">${esc(p.name)}</div>
+          <div class="project-desc">${esc(p.desc)}</div>
+          <div class="project-actions">
+            <a class="project-link" href="${esc(p.url)}" target="_blank">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Buka
+            </a>
+            ${isAdmin ? `
+            <button class="btn-edit" onclick="openEditModal('${key}')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </button>
+            <button class="btn-delete" onclick="openConfirm('${key}','${esc(p.name)}')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+              Hapus
+            </button>` : ''}
+          </div>`;
+        grid.appendChild(card);
+      });
+    } else if (!isAdmin) {
+      grid.innerHTML = `<div style="color:var(--muted);font-size:0.9rem;padding:2rem;text-align:center;grid-column:1/-1;">Belum ada project yang ditambahkan.</div>`;
+    }
+
+    if (isAdmin) {
+      const addCard = document.createElement('div');
+      addCard.className = 'add-project-card';
+      addCard.onclick = () => openAddModal();
+      addCard.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+        <span>Tambah Project</span>`;
+      grid.appendChild(addCard);
+    }
   });
 }
 
-// ===== MODAL TAMBAH =====
-function openModal() {
-  editIndex = -1;
+// ===== MODAL PROJECT =====
+window.openAddModal = () => {
+  editKey = null;
   document.getElementById('modal-icon').textContent = '✨';
   document.getElementById('modal-title').textContent = 'Tambah Project Baru';
   document.getElementById('btn-save-modal').textContent = 'Simpan';
-  ['input-name','input-desc','input-url','input-emoji'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('modal').classList.add('open');
-}
+  ['input-name','input-desc','input-url','input-emoji'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('project-modal').classList.add('open');
+};
 
-// ===== MODAL EDIT =====
-function openEditModal(i) {
-  editIndex = i;
-  const p = projects[i];
-  document.getElementById('modal-icon').textContent = '✏️';
-  document.getElementById('modal-title').textContent = 'Edit Project';
-  document.getElementById('btn-save-modal').textContent = 'Update';
-  document.getElementById('input-name').value = p.name;
-  document.getElementById('input-desc').value = p.desc;
-  document.getElementById('input-url').value = p.url;
-  document.getElementById('input-emoji').value = p.emoji || '';
-  document.getElementById('modal').classList.add('open');
-}
+window.openEditModal = key => {
+  onValue(ref(db,`projects/${key}`), snap => {
+    const p = snap.val(); if (!p) return;
+    editKey = key;
+    document.getElementById('modal-icon').textContent = '✏️';
+    document.getElementById('modal-title').textContent = 'Edit Project';
+    document.getElementById('btn-save-modal').textContent = 'Update';
+    document.getElementById('input-name').value  = p.name  || '';
+    document.getElementById('input-desc').value  = p.desc  || '';
+    document.getElementById('input-url').value   = p.url   || '';
+    document.getElementById('input-emoji').value = p.emoji || '';
+    document.getElementById('project-modal').classList.add('open');
+  }, {onlyOnce:true});
+};
 
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  editIndex = -1;
-}
-function closeModalOutside(e) {
-  if (e.target === document.getElementById('modal')) closeModal();
-}
+window.closeProjectModal = () => {
+  document.getElementById('project-modal').classList.remove('open');
+  editKey = null;
+};
+window.closeModalOutside = e => {
+  if (e.target===document.getElementById('project-modal')) closeProjectModal();
+};
 
-function saveProject() {
+window.saveProject = async () => {
   const name  = document.getElementById('input-name').value.trim();
   const url   = document.getElementById('input-url').value.trim();
   const desc  = document.getElementById('input-desc').value.trim();
   const emoji = document.getElementById('input-emoji').value.trim();
+  if (!name) { showToast('Nama project wajib diisi!','error'); return; }
+  if (!url)  { showToast('URL project wajib diisi!','error'); return; }
 
-  if (!name) { showToast('Nama project wajib diisi!', 'error'); return; }
-  if (!url)  { showToast('URL project wajib diisi!', 'error'); return; }
+  const btn = document.getElementById('btn-save-modal');
+  btn.disabled = true; btn.textContent = 'Menyimpan...';
 
-  const data = { name, desc: desc || 'Tidak ada deskripsi.', url, emoji: emoji || '🌐' };
-
-  if (editIndex >= 0) {
-    // MODE EDIT
-    projects[editIndex] = data;
-    showToast('Project berhasil diupdate!', 'success');
-  } else {
-    // MODE TAMBAH
-    projects.push(data);
-    showToast('Project berhasil ditambahkan!', 'success');
+  const data = { name, desc: desc||'Tidak ada deskripsi.', url, emoji: emoji||'🌐' };
+  try {
+    if (editKey) {
+      await update(ref(db,`projects/${editKey}`), data);
+      showToast('Project berhasil diupdate! ✨','success');
+    } else {
+      await push(ref(db,'projects'), data);
+      showToast('Project berhasil ditambahkan! 🎉','success');
+    }
+    closeProjectModal();
+  } catch (err) {
+    showToast('Gagal: '+err.message,'error');
   }
-
-  localStorage.setItem('rzkan_projects', JSON.stringify(projects));
-  renderProjects();
-  closeModal();
-}
+  btn.disabled = false;
+  btn.textContent = editKey ? 'Update' : 'Simpan';
+};
 
 // ===== CONFIRM DELETE =====
-function openConfirm(i) {
-  deleteIndex = i;
-  document.getElementById('confirm-msg').textContent = `"${projects[i].name}" akan dihapus permanen.`;
+window.openConfirm = (key, name) => {
+  deleteKey = key; deleteKeyName = name;
+  document.getElementById('confirm-msg').textContent = `"${name}" akan dihapus permanen.`;
   document.getElementById('confirm-overlay').classList.add('open');
-}
-function closeConfirm() {
+};
+window.closeConfirm = () => {
   document.getElementById('confirm-overlay').classList.remove('open');
-  deleteIndex = -1;
-}
-function confirmDelete() {
-  if (deleteIndex < 0) return;
-  const name = projects[deleteIndex].name;
-  projects.splice(deleteIndex, 1);
-  localStorage.setItem('rzkan_projects', JSON.stringify(projects));
-  renderProjects();
+  deleteKey = null;
+};
+window.confirmDelete = async () => {
+  if (!deleteKey) return;
+  try {
+    await remove(ref(db,`projects/${deleteKey}`));
+    showToast(`"${deleteKeyName}" berhasil dihapus.`,'info');
+  } catch(err) {
+    showToast('Gagal hapus: '+err.message,'error');
+  }
   closeConfirm();
-  showToast(`"${name}" berhasil dihapus.`, 'info');
-}
-
-// Klik di luar confirm box untuk tutup
-document.getElementById('confirm-overlay').addEventListener('click', function(e) {
-  if (e.target === this) closeConfirm();
+};
+document.getElementById('confirm-overlay').addEventListener('click', e => {
+  if (e.target===document.getElementById('confirm-overlay')) closeConfirm();
 });
 
-renderProjects();
+// ===== LOGIN =====
+window.openLoginModal = () => {
+  document.getElementById('login-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('login-email').focus(), 100);
+};
+window.closeLoginModal = () => {
+  document.getElementById('login-modal').classList.remove('open');
+  document.getElementById('login-email').value='';
+  document.getElementById('login-password').value='';
+};
+window.closeLoginOutside = e => {
+  if (e.target===document.getElementById('login-modal')) closeLoginModal();
+};
+window.doLogin = async () => {
+  const email    = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  if (!email||!password) { showToast('Email & password wajib diisi!','error'); return; }
+  const btn = document.getElementById('btn-login');
+  btn.disabled=true; btn.textContent='Masuk...';
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    closeLoginModal();
+    showToast('Login berhasil! Selamat datang, Admin 👑','success');
+  } catch(err) {
+    const msg = err.code==='auth/invalid-credential'||err.code==='auth/wrong-password'
+      ? 'Email atau password salah.' : err.message;
+    showToast('Login gagal: '+msg,'error');
+  }
+  btn.disabled=false; btn.textContent='Masuk';
+};
+document.getElementById('login-password').addEventListener('keydown', e => {
+  if (e.key==='Enter') doLogin();
+});
+window.doLogout = async () => {
+  await signOut(auth);
+  showToast('Berhasil logout.','info');
+};
 </script>
 </body>
 </html>
